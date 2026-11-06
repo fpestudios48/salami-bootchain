@@ -1,0 +1,35 @@
+run,date,kernel,boot_image,vendor_boot,dtbo,init_boot,observation,evidence,status
+r01,2026-11-02,v7.3,Image+DTB gzip,factory,factory,diagnostic init in boot,2 to 3 s loop,measured,closed
+r02,2026-11-02,v7.3,Image+DTB raw,factory,factory,init in init_boot,3 to 5 s loop; panic timeout not applied,measured,closed
+r03,2026-11-02,v7.3,Image+DTB raw,factory,factory,calibration init,pmOS config hangs; salami config runs calibration about 30 s once,measured,closed
+r04,2026-11-02,v7.3,Image+DTB raw,factory,factory,calibration init,watchdog disabled in three ways; 3 to 5 s reset persists,measured,open
+r05,2026-11-02,v7.3,Image+DTB raw,factory,factory,calibration init,SCM without interconnect properties; 6 to 10 resets then hang,measured,open
+r06,2026-11-02,v7.3,Image+DTB raw,factory,factory,calibration init,fallback times 284 s and 642 s and 103 s,measured,retired
+r07,2026-11-02,v7.3,Image+DTB raw,factory,factory,init with devtmpfs and /dev/fb0,green screen,measured,channel limited
+r08,2026-11-02,v7.3,Image+DTB raw,factory,factory,usb_1 enabled and ACM gadget,no USB enumeration in 40 s,measured,dead with this config
+r09,2026-11-02,v7.3,Image+DTB raw,factory,factory,calibration init,cold boot runs; warm reboot loops every 3 to 5 s,measured,open
+r10,2026-11-05,v7.3,kernel without DTB,custom vendor_boot with DTB 131960,factory,calibration init,direct to fastboot in both attempts,measured,route rejected
+r11,2026-11-05,pmOS vmlinuz 52428800,boot.img 52432896 kernel only,boot-deploy 10170368 with factory header,factory,factory init_boot,fastboot 6 s,measured,rejected
+r12,2026-11-05,pmOS vmlinuz,boot.img 52432896,boot-deploy vendor_boot with board id 0x10009,factory,factory init_boot,fastboot 6 s,measured,rejected
+r13,2026-11-05,pmOS vmlinuz,boot.img 52432896,vendor_boot with factory DTB and bootconfig,factory,factory init_boot,no USB about 10.5 min then fastboot,measured,mixed variables
+r14,2026-11-05,v7.3 reference,kernel without DTB,vendor_boot with symbols DTB 171683,factory,calibration init,fastboot 6 s; 148 of 164 overlay labels missing; board id 0xFF and empty dtbo unchanged,measured,recorded
+r15,2026-11-05,v7.3 reference,kernel without DTB,vendor_boot with symbols DTB 171683,benign dtbo 4332,calibration init,bootloader proceeds; fastboot at 28 s in one run; loop with logo about 3m40 in another,measured,kernel evidence later invalidated by self-inflicted resets
+r16,2026-11-05,v7.3 reference clang,boot.img with appended DTB 58891926,factory,factory,init in init_boot writes dmesg to misc,fastboot 46 to 75 s; misc empty,measured,inconclusive
+r17,2026-11-05,v7.3 reference clang,boot.img with appended DTB,factory DTB 4 FDTs,factory,debug init in vendor ramdisk,fastboot 18 s; misc empty,measured,confounded
+r18,2026-11-05,factory Android kernel,factory boot,factory,factory,debug init in init_boot,fastboot 12 s; misc empty,measured,confounded
+r19,2026-11-06,v7.3 build 69,boot.img with appended DTB 58891926,factory,factory,init that pauses,static green screen for more than 218 s with no reset,measured,does not prove init ran
+r20,2026-11-06,v7.3 build 69,boot.img with appended DTB,factory,factory,init sleeps 15 s then reboots,no reboot at 15 s; static green screen,measured,inconclusive
+r21,2026-11-06,v7.3 build 64 vs build 70,boot.img with appended DTB,factory,factory,init sleeps and reboots,64 green loop; 64 with 15 s fastboot 28 s; 70 static green with both DTBs,measured,source difference not isolated
+r22,2026-11-06,7.3-rc5 build 3,boot.img with appended DTB 60956672,factory,factory,init sleeps and reboots,120 s about 280 s; 15 s 143 s,measured,timing metric confounded
+r23,2026-11-06,v7.3 fixed,boot.img with appended DTB 58896384,factory,factory,init sleeps and reboots,15 s 52 and 71 s; 30 s 150 s; 45 s 102 s; retries 2 to 4,measured,metric quarantined
+r24,2026-11-06,v7.3 fixed,boot.img with appended DTB,factory,factory,init with regulator and initcall blacklist,fastboot 302 s,measured,route retired
+r25,2026-11-06,v7.3 fixed,boot.img with appended DTB,factory,factory,init writes counter first,no marker in last_parti or kmsg,measured,negative
+r26,2026-11-06,factory Android kernel,factory boot,factory,factory,probe init in init_boot,Android does not boot,measured,init_boot init confirmed
+r27,2026-11-06,pmOS kernel from boot-deploy,boot.img 52432896 os version 0,boot-deploy vendor_boot 11735040,factory,factory init_boot,fastboot 44 s,measured,confounded
+r28,2026-11-06,pmOS kernel and DTB,boot.img with appended DTB 58896384,rejected boot-deploy vendor_boot still flashed,factory,pmOS initramfs xz in init_boot 8388608,fastboot 40 s,measured,confounded
+r29,2026-11-05,v7.3 build 69,boot.img with appended DTB and simple framebuffer at root,factory,factory,init,no kernel text on screen; fastboot 12 s,measured,inconclusive
+r30,2026-11-05,v7.3 build 69,boot.img with appended DTB,factory,factory,init sleeps 3 s then powers off,no power off; fastboot 21 s,measured,charger hypothesis unverified
+r31,2026-11-05,v7.3 build 69,boot.img with appended DTB,factory DTB,factory,init sleeps 3 s then powers off,no USB more than 80 s; logo loop; fastboot 84 s; no power off,measured,control
+r32,2026-11-05,v7.3 build 69,boot.img with appended DTB,factory,factory,init writes pstore token then reboots,no power off; fastboot 34 s,measured,inconclusive
+r33,2026-11-07,v7.3 build 64 with progreso DTB,boot-ref-64 58859520,factory,factory,init sleeps 15 s then RB_POWER_OFF,screen black 10 to 15 s after logo and stayed black more than 10 min; no logo,measured,indistinguishable from control
+r34,2026-11-07,v7.3 build 64 with progreso DTB,boot-ref-64 58859520,factory,factory,init sleeps 15 s then pause,control run also black between 10 and 15 s and stayed black,measured,closes the power off signal
