@@ -27,4 +27,4 @@ docs/log-channels.md
 docs/open-questions.md
 DATA/experiments.csv
 
-Licence: text CC BY 4.0, data CC0 1.0. See LICENSE and LICENSE-data.
+Licence: MIT. See LICENSE and LICENSE-data.
